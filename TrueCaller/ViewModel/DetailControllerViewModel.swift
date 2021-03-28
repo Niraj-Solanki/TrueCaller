@@ -41,9 +41,6 @@ class DetailControllerViewModel
     
     var observerBlock:((ObserverType)->Void)?
     
-    init() {
-    }
-    
     func fetchData()  {
         trueCaller10thCharacterApiCall()
         trueCallerEvery10thCharacterApiCall()
@@ -53,11 +50,11 @@ class DetailControllerViewModel
     //MARK:- API Calls
     private func trueCaller10thCharacterApiCall() {
         observerBlock?(.trueCaller10thCharacterDataLoading)
-        detailApiManager.trueCaller10thCharacter { [weak self] (result) in
+        detailApiManager.request(endPoint: .trueCaller10thCharacter) { [weak self] (result) in
             DispatchQueue.main.async {
                 switch result{
                 case .success(let model):
-                    self?.trueCaller10thCharacterModel = model
+                    self?.trueCaller10thCharacterModel = model as? TrueCaller10thCharacterModel
                     break
                 case .failure(let error):
                     self?.observerBlock?(.trueCaller10thCharacter(error.localizedDescription))
@@ -69,11 +66,13 @@ class DetailControllerViewModel
     
     private func trueCallerEvery10thCharacterApiCall() {
         observerBlock?(.trueCallerEvery10thCharacterDataLoading)
-        detailApiManager.trueCallerEvery10thCharacter{ [weak self] (result) in
+        detailApiManager.request(endPoint: .trueCallerEvery10thCharacter) { [weak self] (result) in
             DispatchQueue.main.async {
                 switch result{
                 case .success(let model):
-                    self?.trueCallerEvery10thCharacterModel = model
+                    if let model = model as? TrueCallerEvery10thCharacterModel {
+                        self?.trueCallerEvery10thCharacterModel = model
+                    }
                     break
                 case .failure(let error):
                     self?.observerBlock?(.trueCallerEvery10thCharacter(error.localizedDescription))
@@ -85,11 +84,13 @@ class DetailControllerViewModel
     
     private func trueCallerWordCounterApiCall() {
         observerBlock?(.trueCallerWordCounterDataLoading)
-        detailApiManager.trueCallerWordCounnter { [weak self] (result) in
+        detailApiManager.request(endPoint: .trueCallerWordCounnter) { [weak self] (result) in
             DispatchQueue.main.async {
                 switch result{
                 case .success(let model):
-                    self?.trueCallerWordCounterModel = model
+                    if let model = model as? TrueCallerWordCounterModel {
+                        self?.trueCallerWordCounterModel = model
+                    }
                     break
                 case .failure(let error):
                     self?.observerBlock?(.trueCallerWordCounter(error.localizedDescription))

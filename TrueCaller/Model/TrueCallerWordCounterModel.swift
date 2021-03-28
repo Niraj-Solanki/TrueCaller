@@ -6,11 +6,11 @@
 //
 
 import UIKit
-class TrueCallerWordCounterModel : ResponseParser {
+class TrueCallerWordCounterModel : BaseModel {
     
     var wordsWithOccurances:[String:Int] = [:]
     
-    func parseResponse(data: Data?) {
+    override func parseResponse(data: Data?) {
         guard let data = data else { return }
         
         if let plainText = String(data: data, encoding: .utf8) {

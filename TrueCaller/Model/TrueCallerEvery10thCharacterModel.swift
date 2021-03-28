@@ -7,10 +7,10 @@
 
 import UIKit
 
-class TrueCallerEvery10thCharacterModel: ResponseParser {
+class TrueCallerEvery10thCharacterModel: BaseModel {
     var tokens:[String] = []
     
-    func parseResponse(data: Data?) {
+    override func parseResponse(data: Data?) {
         guard let data = data else { return }
         
             if let plainText = String(data: data, encoding: .utf8) {
